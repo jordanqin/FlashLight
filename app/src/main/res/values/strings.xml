@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">只是手电</string>
+    <string name="on">开</string>
+    <string name="off">关</string>
+
+    <string name="version">Version 1.0.0(1)</string>
+    <string name="introduce_title">介绍</string>
+    <string name="introduce">「轻松验证码」可以将接收到的验证码自动复制到剪切板内，当您收到验证码短信时，只需要长按验证码的输入框，点击粘贴即可</string>
+    <string name="author_title">作者</string>
+    <string name="author_name_jordanqin">jordan qin</string>
+    <string name="developer_and_designer"><![CDATA[程序 & 设计]]></string>
+    <string name="author_email"><![CDATA[jordanqin369@163.com]]></string>
+    <string name="share_title">喜欢它，就分享给朋友吧</string>
+    <string name="share_text">我正在使用「轻松验证码」,它可以在接收到验证码短信时,自动提取出验证码，并且复制到剪切板，只要长按并粘贴就可以快速输入验证码了。强烈推荐哦：http://pre.im/captcha</string>
+    <string name="share_url">http://pre.im/captcha</string>
+
+    <string name="wx_errcode_success">发送成功</string>
+    <string name="wx_errcode_cancel">发送取消</string>
+    <string name="wx_errcode_deny">发送被拒绝</string>
+    <string name="wx_errcode_unknown">发送返回</string>
+</resources>

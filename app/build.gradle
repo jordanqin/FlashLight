@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+def key = file('jordanqin.jks')
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -11,9 +17,18 @@ android {
         versionCode 1
         versionName "1.0.0"
     }
+
+    lintOptions {
+        disable 'MissingTranslation', 'ExtraTranslation'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
     signingConfigs {
         releaseConfig {
-            storeFile file("jordan.jks")
+            storeFile key
             storePassword("qin13572384498")
             keyAlias "jordanqin"
             keyPassword "qin13572384498"
@@ -22,14 +37,61 @@ android {
 
     buildTypes {
         release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
             debuggable false
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.releaseConfig
+            if (key.exists()) {
+                println "using jordanqin's key"
+                signingConfig signingConfigs.releaseConfig
+            } else {
+                println "---------------using default key---------------"
+            }
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为FlashLight_v1.0.2_2015-01-15_wandoujia.apk
+                        def fileName = "FlashLight_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
 
         debug {
             debuggable true
+        }
+
+        productFlavors {
+            fir {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "fir"]
+            }
+            pre {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "pre"]
+            }
+            GooglePlay {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "GooglePlay"]
+            }
+            YingYongBao {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "YingYongBao"]
+            }
+            Xiaomi {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Xiaomi"]
+            }
+            _360 {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "360"]
+            }
+            Baidu {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Baidu"]
+            }
+            Wandoujia {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Wandoujia"]
+            }
         }
     }
 
@@ -43,7 +105,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:recyclerview-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
     compile files('libs/libammsdk.jar')
     compile 'com.umeng.analytics:analytics:latest.integration'

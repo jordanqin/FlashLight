@@ -5,7 +5,6 @@ import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -20,7 +19,7 @@ import com.umeng.update.UmengUpdateAgent;
  * desc:
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private Boolean m_IsOpened = false;
     private Boolean hasFlashLight=false;

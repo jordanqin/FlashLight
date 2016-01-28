@@ -29,7 +29,7 @@
             android:value="55eb1a3267e58e227d00288a" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="GUANFANG" />
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
         <service
             android:name="com.umeng.update.net.DownloadingService"
